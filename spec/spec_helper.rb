@@ -9,11 +9,14 @@ require('answer')
 
 RSpec.configure do |config|
   config.after(:each) do
-    # Task.all().each() do |task|
-    #   task.destroy()
-    # end
-    # List.all().each() do |list|
-    #   list.destroy()
-    # end
+    Survey.all().each() do |survey|
+      survey.destroy()
+    end
+    Question.all().each() do |question|
+      question.destroy()
+    end
+    Answer.all().each() do |answer|
+      answer.destroy()
+    end
   end
 end
