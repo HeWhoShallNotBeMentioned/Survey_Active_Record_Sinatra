@@ -1,0 +1,11 @@
+<h2><%= @question.question() %> </h2>
+<form action="/questions/<%= @question.id() %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <label for="question">Question:</label>
+  <input type="text" value="<%= @question.question() %>" name="question">
+
+  <button type="submit" class="btn btn-primary btn-sm">Edit Question</button>
+
+
+</form>

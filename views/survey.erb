@@ -1,1 +1,38 @@
 <h2><%= @survey.title() %> </h2>
+<a href="/surveys/<%= @survey.id %>/edit">Edit Title</a>
+<form action="/surveys/<%= @survey.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger btn-sm">Delete Survey</button>
+</form>
+
+<div class="row">
+  <div class="col-xs-6">
+    <% if @survey.questions.any?() %>
+    <ul class="list-group">
+      <% @survey.questions.each() do |q| %>
+      <li class="list-group-item">
+        <%= q.question() %>
+        <div class="text-right">
+          <a href="/questions/<%= q.id %>/edit">Edit</a>
+          <form action="/questions/<%= q.id %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-danger btn-sm">Delete Question</button>
+          </form>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+    <% else %>
+    <h3>There are no questions.</h3>
+    <% end %>
+  </div>
+  <div class="col-xs-6">
+    <h3>Add a new question:</h3>
+    <form action="/surveys/<%= @survey.id %>/questions/new" method="post">
+      <label for="question">Question:</label>
+      <input type="text" name="question">
+
+      <button type="submit" class="btn btn-primary btn-sm">Add Question</button>
+    </form>
+  </div>
+</div>
