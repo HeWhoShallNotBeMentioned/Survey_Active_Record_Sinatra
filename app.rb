@@ -13,3 +13,9 @@ get ('/') do
   @surveys = Survey.all()
   erb(:index)
 end
+
+post ('/surveys/new') do
+  title = params.fetch('title')
+  @survey = Survey.create({title: title})
+  erb(:survey)
+end
