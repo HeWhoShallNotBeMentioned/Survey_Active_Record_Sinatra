@@ -19,3 +19,9 @@ post ('/surveys/new') do
   @survey = Survey.create({title: title})
   erb(:survey)
 end
+
+get ("/surveys/:id") do
+  id = params.fetch('id').to_i
+  @survey = Survey.find(id)
+  erb(:survey)
+end

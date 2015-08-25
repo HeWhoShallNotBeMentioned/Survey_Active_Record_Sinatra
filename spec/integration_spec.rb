@@ -16,4 +16,11 @@ describe("/surveys", {type: :feature}) do
     click_button("Add Survey")
     expect(page).to have_content("Who Am I?")
   end
+
+  it("successfully displays a survey") do
+    survey = Survey.create({title: "Who Am I?"})
+    visit("/")
+    click_link("Who Am I?")
+    expect(page).to have_content("Who Am I?")
+  end
 end
