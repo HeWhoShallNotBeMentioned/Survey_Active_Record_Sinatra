@@ -4,7 +4,11 @@
   <input type="hidden" name="_method" value="delete">
   <button type="submit" class="btn btn-danger btn-sm">Delete Survey</button>
 </form>
-
+<% if @question != nil %>
+  <% @question.errors().full_messages().each() do |message| %>
+<div class="alert alert-danger"><%= message %></div>
+  <% end %>
+<% end %>
 <div class="row">
   <div class="col-xs-6">
     <% if @survey.questions.any?() %>

@@ -20,8 +20,13 @@ end
 
 post ('/surveys/new') do
   title = params.fetch('title')
-  @survey = Survey.create({title: title})
-  erb(:survey)
+  @survey = Survey.new({title: title})
+  if @survey.save()
+    erb(:survey)
+  else
+    @surveys = Survey.all()
+    erb(:surveys)
+  end
 end
 
 get ("/surveys/:id") do
@@ -55,7 +60,7 @@ post ("/surveys/:survey_id/questions/new") do
   survey_id = params.fetch("survey_id").to_i
   question = params.fetch("question")
   @survey = Survey.find(survey_id)
-  Question.create({survey_id: survey_id, question: question})
+  @question = Question.create({survey_id: survey_id, question: question})
   erb(:survey)
 end
 
