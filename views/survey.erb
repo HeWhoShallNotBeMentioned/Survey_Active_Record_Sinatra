@@ -36,3 +36,12 @@
     </form>
   </div>
 </div>
+<h2>Responses</h2>
+<% @survey.questions.each() do |q| %>
+<h4><%= q.question() %></h4>
+<ul>
+  <% q.answers.each() do |a|%>
+  <li><%= a.answer() %></li>
+  <% end %>
+</ul>
+<% end %>

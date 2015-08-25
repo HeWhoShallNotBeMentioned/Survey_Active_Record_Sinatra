@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-xs-6">
+    <% if @survey.questions.any?() %>
+      <form action="/take/surveys/<%= @survey.id %>" method="post">
+        <input type="hidden" name="count" value="<%= @survey.questions.count %>">
+        <ul class="list-group">
+        <% @survey.questions.each() do |q| %>
+          <li class="list-group-item">
+            <%= q.question() %>
+            <input type="hidden" name="_method" value="patch">
+            <input type="text" name="<%= q.id %>">
+          </li>
+        <% end %>
+        </ul>
+        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+      </form>
+    <% end %>
+  </div>
+</div>

@@ -9,9 +9,13 @@ require('./lib/answer/')
 require('pg')
 require('pry')
 
-get ('/') do
-  @surveys = Survey.all()
+get ("/") do
   erb(:index)
+end
+
+get ('/surveys') do
+  @surveys = Survey.all()
+  erb(:surveys)
 end
 
 post ('/surveys/new') do
@@ -78,4 +82,27 @@ delete ("/questions/:id") do
   question.destroy()
   @survey = Survey.find(survey_id)
   erb(:survey)
+end
+
+get ("/take/surveys") do
+  @surveys = Survey.all
+  erb(:take_surveys)
+end
+
+get ("/take/surveys/:id/edit") do
+  id = params.fetch('id').to_i
+  @survey = Survey.find(id)
+  @questions = @survey.questions()
+  erb(:take_survey)
+end
+
+patch ("/take/surveys/:survey_id") do
+  survey_id = params.fetch("survey_id").to_i
+  survey = Survey.find(survey_id)
+  survey.questions.each do |question|
+    answer = params.fetch("#{question.id}")
+    Answer.create({answer: answer, question_id: question.id})
+  end
+  @surveys = Survey.all
+  erb(:take_surveys)
 end
